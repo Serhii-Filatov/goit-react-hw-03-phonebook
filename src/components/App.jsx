@@ -14,20 +14,6 @@ export class App extends React.Component {
     filter: '',
   };
 
-  // UNDONE=============================================================================
-  // Phonebook: В локальне сховище дані потрібно записувати в тому випадку,
-  // коли змінився масив з контактами (відбулося додавання/видалення контактів)
-  // componentDidUpdate(prevProps, prevState){
-  //   if(this.state.contacts !== prevState.contacts){
-  //    localStorage.setItem()
-  //   }
-  //  }
-  // Вся основна логіка повинна бути в Арр.
-  // Для додавання і видалення контактів використовувати значення від попереднього,
-  // уникаємо мутацій стейту. В компоненті ContactsList ніяких фільтрів не потрібно,
-  // лише створення розмітки.
-  // UNDONE=============================================================================
-
   addNewContact = contact => {
     const { contacts } = this.state;
 
@@ -63,6 +49,19 @@ export class App extends React.Component {
       contacts: prevState.contacts.filter(({ id }) => id !== contactId),
     }));
   };
+
+  componentDidMount() {
+    const storedContacts = JSON.parse(localStorage.getItem('contacts'));
+    if (storedContacts && storedContacts.length > 0) {
+      this.setState({ contacts: storedContacts });
+    }
+  }
+
+  componentDidUpdate(prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
 
   render() {
     return (
