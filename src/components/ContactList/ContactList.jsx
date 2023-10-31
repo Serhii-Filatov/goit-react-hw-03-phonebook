@@ -1,23 +1,21 @@
-import css from 'components/ContactList/ContactList.module.css';
+import { ContactListItem } from './ContactListItem/ContactListItem';
 
 export const ContactList = ({ contacts, deleteContact }) => {
   return (
     <ul>
-      {contacts.map(contact => {
-        return (
-          <li className={css.li} key={contact.id}>
-            {contact.name}: {contact.number}
-            <button
-              className={css.btn}
-              id={contact.id}
-              onClick={() => deleteContact(contact.id)}
-              type="button"
-            >
-              Delete
-            </button>
-          </li>
-        );
-      })}
+      {contacts.length ? (
+        contacts.map(({ id, name, number }) => (
+          <ContactListItem
+            id={id}
+            key={id}
+            name={name}
+            number={number}
+            onDeleteContact={deleteContact}
+          />
+        ))
+      ) : (
+        <p>Contact list is empty</p>
+      )}
     </ul>
   );
 };
