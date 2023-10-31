@@ -1,10 +1,10 @@
 .li {
   display: flex;
   justify-content: space-between;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   margin-bottom: 20px;
-  width: 420px;
+  width: 380px;
 }
 
 .btn {
